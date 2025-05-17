@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}MediPredict - Symptom Analysis{% endblock %}
+
+{% block head %}
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+
+    .select-badge {
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .select-badge:hover {
+        background-color: #ef4444;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="py-12 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-semibold text-center text-gray-900 mb-8">Disease Prediction Tool</h1>
+        <p class="text-lg text-center text-gray-600 mb-8">Select your symptoms below to predict potential diseases.</p>
+
+        <form method="POST" action="/predict" x-data="{ selected: [] }" class="space-y-6 max-w-3xl mx-auto">
+            <!-- Symptom Picker -->
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold text-gray-700">Select up to 7 symptoms:</label>
+                <select x-on:change="if($event.target.value && selected.length < 7 && !selected.includes($event.target.value)) selected.push($event.target.value); $event.target.value=''"
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">--Select Symptom--</option>
+                    {% for symptom in symptom_list %}
+                    <option value="{{ symptom }}">{{ symptom.replace('_', ' ').capitalize() }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Selected Symptoms -->
+            <div class="flex flex-wrap gap-2">
+                <template x-for="(symptom, index) in selected" :key="index">
+                    <div class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full select-badge" @click="selected.splice(index, 1)">
+                        <span x-text="symptom.replace('_', ' ').charAt(0).toUpperCase() + symptom.replace('_', ' ').slice(1)"></span> &times;
+                        <input type="hidden" :name="'symptom' + (index + 1)" :value="symptom">
+                    </div>
+                </template>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="sm:col-span-2 flex justify-center mt-4">
+                <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded shadow transition">
+                    Predict
+                </button>
+            </div>
+        </form>
+
+        <!-- Display Prediction Result -->
+        {% if prediction %}
+        <div
+            class="mt-8 p-4 bg-green-100 border border-green-400 text-green-700 rounded text-center text-xl font-semibold">
+            Predicted Disease: <strong>{{ prediction }}</strong>
+        </div>
+        {% elif prediction is not none %}
+        <div class="mt-8 text-center text-lg text-red-600">
+            Unable to predict disease. Please try with different symptoms.
+        </div>
+        {% else %}
+        <div class="mt-8 text-center text-lg text-gray-600">
+            No prediction yet. Please select your symptoms and click on "Predict" to get a result.
+        </div>
+        
+        {% endif %}
+    </div>
+</section>
+
+
+<!-- Information Section -->
+<section class="py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-900">How It Works</h2>
+            <p class="mt-2 text-lg text-gray-600">Understanding our disease prediction process</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
+                <h3 class="text-xl font-semibold mb-3 text-gray-900">Our Technology</h3>
+                <p class="text-gray-600 mb-3">MediPredict uses machine learning algorithms trained on vast medical
+                    datasets to identify patterns and relationships between symptoms and diseases.</p>
+                <p class="text-gray-600">Our models are continuously improved and validated by healthcare professionals
+                    to ensure accuracy and reliability.</p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6 shadow-sm">
+                <h3 class="text-xl font-semibold mb-3 text-gray-900">Next Steps</h3>
+                <p class="text-gray-600 mb-3">After receiving your prediction, we recommend discussing the results with
+                    your healthcare provider.</p>
+                <p class="text-gray-600">Early detection and professional medical advice are essential for proper
+                    treatment and management of health conditions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

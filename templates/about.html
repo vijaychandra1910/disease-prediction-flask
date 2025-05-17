@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}About MediPredict{% endblock %}
+
+{% block content %}
+<section class="py-12 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-semibold text-center text-gray-900 mb-8">About MediPredict</h1>
+        <p class="text-lg text-center text-gray-600 mb-8">MediPredict is an AI-powered tool designed to help you identify potential health conditions based on your symptoms.</p>
+
+        <!-- Features Section -->
+        <div class="space-y-8">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-gray-600">
+                    MediPredict uses machine learning models trained on a variety of health data to predict the likelihood of certain diseases based on the symptoms you provide. It can help identify early signs of various conditions, providing you with insights into potential health issues.
+                </p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Our Technology</h2>
+                <p class="text-gray-600">
+                    Our system relies on advanced machine learning algorithms and a vast dataset of symptoms, conditions, and their relationships. This allows for fast, reliable, and accurate predictions based on your inputs. However, it is important to note that this tool is not a substitute for professional medical advice.
+                </p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-900 mb-4">Disclaimer</h2>
+                <p class="text-gray-600">
+                    MediPredict is designed for informational purposes only. It is not intended to diagnose or treat medical conditions. Always consult a healthcare professional for medical advice and treatment options.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="text-center mt-12">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Contact Us</h3>
+            <p class="text-gray-600 mb-4">If you have any questions or need further assistance, feel free to reach out to us.</p>
+            <a href="mailto:contact@medipredict.com" class="text-blue-600 hover:underline">Email us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
