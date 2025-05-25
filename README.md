@@ -1,3 +1,5 @@
+# MediPredict <br>
+A disease Prection Machine learning Website using Flask,Scikit-learn,joblib etc.
 # 🧠 Disease Prediction App (Flask + ML)
 
 A web-based machine learning project built using **Flask** to predict diseases based on symptoms provided by the user.
