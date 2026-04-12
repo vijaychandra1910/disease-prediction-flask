@@ -3,11 +3,20 @@ import joblib
 
 app = Flask(__name__)
 
-# Load the trained model, label encoder, and symptom vocabulary
+import os
+
+# Get the directory where app.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Load the trained model, label encoder, and symptom vocabulary using absolute paths
 try:
-    model = joblib.load('./models/model.pkl')
-    label_encoder = joblib.load('./models/label_encoder.pkl')
-    symptom_list = joblib.load('./models/symptom_vocab.pkl')  # Assuming you saved symptom list here
+    model_path = os.path.join(BASE_DIR, 'models', 'model.pkl')
+    label_path = os.path.join(BASE_DIR, 'models', 'label_encoder.pkl')
+    vocab_path = os.path.join(BASE_DIR, 'models', 'symptom_vocab.pkl')
+    
+    model = joblib.load(model_path)
+    label_encoder = joblib.load(label_path)
+    symptom_list = joblib.load(vocab_path)
 except Exception as e:
     print(f"Error loading model or files: {e}")
     exit(1)
