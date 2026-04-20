@@ -16,6 +16,23 @@ A web-based machine learning project built using **Flask** to predict diseases b
 - HTML/CSS
 - joblib (for model loading)
 
+## 🤖 Machine Learning Model
+
+This project uses a **RandomForestClassifier** from scikit-learn for disease prediction.
+
+### Model Details:
+- **Algorithm**: Random Forest Classifier
+- **Number of Estimators**: 100 decision trees
+- **Random State**: 42 (for reproducibility)
+- **Criterion**: Gini impurity
+- **Max Features**: sqrt (square root of total features)
+
+### How it Works:
+1. The model takes user-selected symptoms as binary input features
+2. Each symptom is encoded as 1 (present) or 0 (absent)
+3. The Random Forest ensemble makes predictions by aggregating votes from multiple decision trees
+4. The predicted disease is then decoded using the label encoder
+
 ## ⚙️ How to Run
 
 1. Clone the repo:
